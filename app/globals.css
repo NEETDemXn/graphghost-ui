@@ -1,26 +1,129 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Tell Tailwind where to look for class names */
+@source "./app/**/*.{js,jsx,ts,tsx,mdx}";
+@source "./components/**/*.{js,jsx,ts,tsx,mdx}";
+@source "./pages/**/*.{js,jsx,ts,tsx,mdx}";
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Design tokens (colors, shadows, animations, bg images, fonts) */
+@theme {
+  /* Fonts */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Inter",
+    sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Colors -> bg-bg, text-bg, border-bg, etc. */
+  --color-bg: #050712;
+  --color-bg-alt: #0a0e17;
+  --color-panel: #1c2639;
+
+  --color-neon-cyan: #5ef2ff;
+  --color-neon-magenta: #ff3a82;
+  --color-neon-green: #89ff6f;
+  --color-neon-yellow: #ffe66d;
+
+  /* Shadows -> shadow-neon, shadow-neon-soft, shadow-magenta-soft */
+  --shadow-neon: 0 0 25px rgba(94, 242, 255, 0.6);
+  --shadow-neon-soft: 0 0 15px rgba(94, 242, 255, 0.28);
+  --shadow-magenta-soft: 0 0 18px rgba(255, 58, 130, 0.4);
+
+  /* Background images -> bg-scanlines, bg-grid-neon, bg-radial-fade */
+  --background-image-scanlines: repeating-linear-gradient(
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+
+  --background-image-grid-neon: linear-gradient(
+      to right,
+      rgba(94, 242, 255, 0.15) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(94, 242, 255, 0.08) 1px,
+      transparent 1px
+    );
+
+  --background-image-radial-fade: radial-gradient(
+    circle at top,
+    rgba(94, 242, 255, 0.24),
+    transparent 60%
+  );
+
+  /* Custom animations -> animate-float, animate-glitch */
+  --animate-float: float 8s ease-in-out infinite;
+  --animate-glitch: glitch 1.2s infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes glitch {
+    0% {
+      transform: translate(0, 0);
+    }
+    20% {
+      transform: translate(-1px, 1px);
+    }
+    40% {
+      transform: translate(1px, -1px);
+    }
+    60% {
+      transform: translate(-1px, -1px);
+    }
+    80% {
+      transform: translate(1px, 1px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
   }
 }
 
+/* Global base styles */
+
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+}
+
+body {
+  @apply bg-bg text-slate-100 font-sans antialiased;
+}
+
+/* Subtle CRT + glow / noise wrapper */
+.body-background {
+  position: relative;
+  isolation: isolate;
+}
+
+.body-background::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--background-image-scanlines);
+  background-size: 100% 2px;
+  opacity: 0.5;
+  mix-blend-mode: soft-light;
+  z-index: -1;
+}
+
+.body-background::after {
+  content: "";
+  position: fixed;
+  inset: -50px;
+  pointer-events: none;
+  background: var(--background-image-radial-fade);
+  opacity: 0.5;
+  z-index: -1;
 }

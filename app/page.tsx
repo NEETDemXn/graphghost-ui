@@ -130,12 +130,13 @@ function SiteHeader() {
         <a href="#pricing" className="transition-colors hover:text-neon-cyan">
           PRICING
         </a>
-        <a
+        {/* <a
           href="#"
           className="rounded-full border border-neon-cyan/40 bg-bg/40 px-4 py-1.5 text-neon-cyan shadow-neon-soft transition hover:border-neon-cyan hover:bg-bg/80"
         >
           LAUNCH
-        </a>
+        </a> */}
+        <WaitlistModalTrigger innerText="JOIN WAITLIST" gradient={false} className="rounded-full border border-neon-cyan/40 bg-bg/40 px-4 py-1.5 text-neon-cyan shadow-neon-soft transition hover:border-neon-cyan hover:bg-bg/80" />
       </nav>
     </header>
   );

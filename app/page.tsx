@@ -1,5 +1,6 @@
 import { BrandLogo } from "./components/BrandLogo";
 import { WaitlistModalTrigger } from "./components/WaitlistModal";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -702,18 +703,9 @@ function FooterSection() {
         </div>
 
         <div className="flex flex-wrap justify-end gap-4 text-[10px] font-mono">
-          <a href="#" className="hover:text-neon-cyan">
-            Docs
-          </a>
-          <a href="#" className="hover:text-neon-cyan">
+          <Link href="https://github.com/NEETDemXn/graphghost-ui" target="_blank" className="hover:text-neon-cyan">
             GitHub
-          </a>
-          <a href="#" className="hover:text-neon-cyan">
-            Discord
-          </a>
-          <a href="#" className="hover:text-neon-cyan">
-            Privacy
-          </a>
+          </Link>
         </div>
       </div>
     </footer>
